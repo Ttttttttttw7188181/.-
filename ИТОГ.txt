@@ -1,7 +1,7 @@
 #profile-title: 5056766692
 #profile-update-interval: 24
 #announce: ❗Используйте их по назначению ❗
-#hide-settings: 0
+#hide-settings: 1
 {
   "dns": {
     "servers": [
