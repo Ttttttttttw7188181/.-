@@ -2,7 +2,7 @@
 #profile-update-interval: 24
 #announce: ❗Используйте их по назначению ❗
 #hide-settings: 0
-{
+happ://add/{
   "dns": {
     "servers": [
       "1.1.1.1",
