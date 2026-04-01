@@ -2,7 +2,7 @@
 #profile-update-interval: 24
 #announce: ❗Используйте их по назначению ❗
 #hide-settings: 0
-happ://add/{
+{
   "dns": {
     "servers": [
       "1.1.1.1",
@@ -510,7 +510,6 @@ happ://add/{
     "serverDescription": "Стандартный Обход"
   }
 }
-
 {
   "dns": {
     "tag": "dns-in",
@@ -1100,7 +1099,6 @@ happ://add/{
     "serverDescription": "Обход LTE"
   }
 }
-
 {
   "dns": {
     "tag": "dns-in",
@@ -1271,5 +1269,4 @@ happ://add/{
     "serverDescription": "Обход LTE"
   }
 }
-
 happ://routing/add/eyJibG9ja2lwIjpbXSwiYmxvY2tzaXRlcyI6WyJnZW9zaXRlOndpbi1zcHkiLCJnZW9zaXRlOnRvcnJlbnQiLCJnZW9zaXRlOmNhdGVnb3J5LWFkcyJdLCJkaXJlY3RpcCI6WyJnZW9pcDpwcml2YXRlIiwiZ2VvaXA6ZGlyZWN0Il0sImRpcmVjdHNpdGVzIjpbImdlb3NpdGU6cHJpdmF0ZSIsImdlb3NpdGU6Y2F0ZWdvcnktcnUiLCJnZW9zaXRlOm1pY3Jvc29mdCIsImdlb3NpdGU6YXBwbGUiLCJnZW9zaXRlOmdvb2dsZS1wbGF5IiwiZ2Vvc2l0ZTplcGljZ2FtZXMiLCJnZW9zaXRlOnJpb3QiLCJnZW9zaXRlOmVzY2FwZWZyb210YXJrb3YiLCJnZW9zaXRlOnN0ZWFtIiwiZ2Vvc2l0ZTpvcmlnaW4iLCJnZW9zaXRlOnR3aXRjaCIsImdlb3NpdGU6cGludGVyZXN0IiwiZ2Vvc2l0ZTpmYWNlaXQiXSwiZG5zaG9zdHMiOnsiY2xvdWRmbGFyZS1kbnMuY29tIjoiMS4xLjEuMSIsImRucy5nb29nbGUiOiI4LjguOC44In0sImRvbWFpbnN0cmF0ZWd5IjoiSVBJZk5vbk1hdGNoIiwiZG9tZXN0aWNkbnNkb21haW4iOiJodHRwczovLzc3Ljg4LjguOC9kbnMtcXVlcnkiLCJkb21lc3RpY2Ruc2lwIjoiNzcuODguOC44IiwiZG9tZXN0aWNkbnN0eXBlIjoiRG9IIiwiZmFrZWRucyI6ZmFsc2UsImdlb2lwdXJsIjoiaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL2h5ZHJhcG9uaXF1ZS9yb3Njb212cG4tZ2VvaXBAMjAyNjAzMDQwNDUwL3JlbGVhc2UvZ2VvaXAuZGF0IiwiZ2Vvc2l0ZXVybCI6Imh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9naC9oeWRyYXBvbmlxdWUvcm9zY29tdnBuLWdlb3NpdGVAMjAyNjAzMDQyMzM4L3JlbGVhc2UvZ2Vvc2l0ZS5kYXQiLCJnbG9iYWxwcm94eSI6dHJ1ZSwibGFzdHVwZGF0ZWQiOiIxNzcyNjY3NTc2IiwibmFtZSI6IlJvc2NvbVZQTiIsInByb3h5aXAiOltdLCJwcm94eXNpdGVzIjpbImdlb3NpdGU6Z2l0aHViIiwiZ2Vvc2l0ZTp0d2l0Y2gtYWRzIiwiZ2Vvc2l0ZTp5b3V0dWJlIiwiZ2Vvc2l0ZTp0ZWxlZ3JhbSJdLCJyZW1vdGVkbnNkb21haW4iOiJodHRwczovLzguOC44LjgvZG5zLXF1ZXJ5IiwicmVtb3RlZG5zaXAiOiI4LjguOC44IiwicmVtb3RlZG5zdHlwZSI6IkRvSCIsInJvdXRlb3JkZXIiOiJibG9jay1wcm94eS1kaXJlY3QifQ==
