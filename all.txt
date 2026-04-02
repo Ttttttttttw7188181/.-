@@ -1,3 +1,7 @@
+#profile-title: 5056766692
+#profile-update-interval: 24
+#announce: ❗Используйте по назначению❗
+#support-url: https://t.me/Jt02102
 [
   {
     "dns": {
