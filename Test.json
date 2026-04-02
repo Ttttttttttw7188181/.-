@@ -1,0 +1,489 @@
+[
+  {
+    "dns": {
+      "tag": "dns-in",
+      "servers": [
+        "1.1.1.1",
+        "8.8.8.8"
+      ],
+      "queryStrategy": "UseIPv4"
+    },
+    "log": {
+      "loglevel": "warning"
+    },
+    "routing": {
+      "rules": [
+        {
+          "type": "field",
+          "protocol": [
+            "bittorrent"
+          ],
+          "outboundTag": "direct"
+        },
+        {
+          "type": "field",
+          "domain": [
+            "domain:mtalk.google.com",
+            "domain:push.apple.com",
+            "domain:api.push.apple.com",
+            "domain:push-apple.com.akadns.net",
+            "domain:*-courier.push.apple.com"
+          ],
+          "outboundTag": "direct"
+        },
+        {
+          "ip": [
+            "17.0.0.0/8"
+          ],
+          "type": "field",
+          "outboundTag": "direct"
+        },
+        {
+          "type": "field",
+          "domain": [
+            "domain:2ip.ru",
+            "domain:2ip.io",
+            "habr.com",
+            "4pda.to",
+            "4pda.ru",
+            "kemono.su",
+            "jut.su",
+            "kara.su",
+            "theins.ru",
+            "tvrain.ru",
+            "echo.msk.ru",
+            "the-village.ru",
+            "snob.ru",
+            "novayagazeta.ru",
+            "moscowtimes.ru"
+          ],
+          "outboundTag": "proxy"
+        },
+        {
+          "type": "field",
+          "domain": [
+            "geosite:private",
+            "geosite:category-ru",
+            "geosite:category-gov-ru"
+          ],
+          "outboundTag": "direct"
+        },
+        {
+          "ip": [
+            "geoip:ru",
+            "geoip:private"
+          ],
+          "type": "field",
+          "outboundTag": "direct"
+        }
+      ],
+      "domainStrategy": "IPIfNonMatch"
+    },
+    "inbounds": [
+      {
+        "tag": "socks",
+        "port": 10808,
+        "listen": "127.0.0.1",
+        "protocol": "socks",
+        "settings": {
+          "udp": true,
+          "auth": "noauth"
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls",
+            "quic"
+          ]
+        }
+      },
+      {
+        "tag": "http",
+        "port": 10809,
+        "listen": "127.0.0.1",
+        "protocol": "http",
+        "settings": {
+          "allowTransparent": false
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls",
+            "quic"
+          ]
+        }
+      }
+    ],
+    "outbounds": [
+      {
+        "tag": "proxy",
+        "protocol": "vless",
+        "settings": {
+          "vnext": [
+            {
+              "address": "95.85.245.112",
+              "port": 443,
+              "users": [
+                {
+                  "id": "b0d5d075-b0c4-4aaf-89e3-c539daa45e2d",
+                  "encryption": "none",
+                  "flow": "xtls-rprx-vision",
+                  "level": 8
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "tcp",
+          "security": "reality",
+          "realitySettings": {
+            "serverName": "max.ru",
+            "publicKey": "W22BJZk_-gGzOuyaQWFyfaf9dARz3a4sApLXQXa__Ss",
+            "shortId": "",
+            "fingerprint": "chrome",
+            "allowInsecure": false
+          }
+        }
+      },
+      {
+        "protocol": "freedom",
+        "tag": "direct"
+      },
+      {
+        "protocol": "blackhole",
+        "tag": "block"
+      }
+    ],
+    "remarks": "🇫🇲Для Telegram",
+    "meta": {
+      "serverDescription": "Обход LTE"
+    }
+  },
+  {
+    "dns": {
+      "servers": [
+        "1.1.1.1",
+        "8.8.8.8"
+      ],
+      "queryStrategy": "UseIPv4"
+    },
+    "log": {
+      "loglevel": "warning"
+    },
+    "routing": {
+      "rules": [
+        {
+          "type": "field",
+          "domain": [
+            "domain:mtalk.google.com",
+            "domain:push.apple.com",
+            "domain:api.push.apple.com",
+            "domain:push-apple.com.akadns.net",
+            "domain:*-courier.push.apple.com"
+          ],
+          "outboundTag": "direct"
+        },
+        {
+          "ip": [
+            "17.0.0.0/8"
+          ],
+          "type": "field",
+          "outboundTag": "direct"
+        },
+        {
+          "type": "field",
+          "network": "tcp,udp",
+          "inboundTag": [
+            "loopback-in"
+          ],
+          "balancerTag": "FALLBACK_BYPASS"
+        },
+        {
+          "type": "field",
+          "protocol": [
+            "bittorrent"
+          ],
+          "outboundTag": "direct"
+        },
+        {
+          "type": "field",
+          "network": "tcp,udp",
+          "balancerTag": "SMART_EU"
+        }
+      ],
+      "balancers": [
+        {
+          "tag": "SMART_EU",
+          "selector": [
+            "proxy_1",
+            "proxy_2"
+          ],
+          "strategy": {
+            "type": "leastLoad",
+            "settings": {
+              "maxRTT": "800ms",
+              "expected": 4,
+              "baselines": [
+                "200ms",
+                "400ms"
+              ],
+              "tolerance": 0.1
+            }
+          },
+          "fallbackTag": "loopback-out"
+        },
+        {
+          "tag": "FALLBACK_BYPASS",
+          "selector": [
+            "bypass_1",
+            "bypass_2"
+          ],
+          "strategy": {
+            "type": "leastLoad",
+            "settings": {
+              "maxRTT": "500ms",
+              "expected": 60,
+              "baselines": [
+                "100ms",
+                "300ms"
+              ],
+              "tolerance": 0.1
+            }
+          }
+        }
+      ],
+      "domainMatcher": "hybrid",
+      "domainStrategy": "IPIfNonMatch"
+    },
+    "inbounds": [
+      {
+        "tag": "socks",
+        "port": 10808,
+        "listen": "127.0.0.1",
+        "protocol": "socks",
+        "settings": {
+          "udp": true,
+          "auth": "noauth"
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls",
+            "quic"
+          ]
+        }
+      },
+      {
+        "tag": "http",
+        "port": 10809,
+        "listen": "127.0.0.1",
+        "protocol": "http",
+        "settings": {
+          "allowTransparent": false
+        },
+        "sniffing": {
+          "enabled": true,
+          "destOverride": [
+            "http",
+            "tls",
+            "quic"
+          ]
+        }
+      },
+      {
+        "tag": "loopback-in",
+        "port": 10901,
+        "listen": "127.0.0.1",
+        "protocol": "dokodemo-door",
+        "settings": {
+          "address": "127.0.0.1",
+          "network": "tcp,udp"
+        }
+      }
+    ],
+    "outbounds": [
+      {
+        "tag": "direct",
+        "protocol": "freedom"
+      },
+      {
+        "tag": "block",
+        "protocol": "blackhole"
+      },
+      {
+        "tag": "loopback-out",
+        "protocol": "loopback",
+        "settings": {
+          "inboundTag": "loopback-in"
+        }
+      },
+      {
+        "tag": "proxy_1",
+        "protocol": "vless",
+        "settings": {
+          "vnext": [
+            {
+              "address": "185.112.59.199",
+              "port": 443,
+              "users": [
+                {
+                  "id": "b0d5d075-b0c4-4aaf-89e3-c539daa45e2d",
+                  "encryption": "none",
+                  "flow": "xtls-rprx-vision",
+                  "level": 8
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "tcp",
+          "tcpSettings": {
+            "header": {
+              "type": "none"
+            }
+          },
+          "security": "reality",
+          "realitySettings": {
+            "serverName": "github.com",
+            "publicKey": "I_72571ePMcQNh9DeFxjTvTRvGWKDRRn-nXuY-dBxFw",
+            "shortId": "",
+            "fingerprint": "chrome",
+            "allowInsecure": false
+          }
+        }
+      },
+      {
+        "tag": "bypass_1",
+        "protocol": "vless",
+        "settings": {
+          "vnext": [
+            {
+              "address": "185.112.59.199",
+              "port": 443,
+              "users": [
+                {
+                  "id": "b0d5d075-b0c4-4aaf-89e3-c539daa45e2d",
+                  "encryption": "none",
+                  "flow": "xtls-rprx-vision",
+                  "level": 8
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "tcp",
+          "tcpSettings": {
+            "header": {
+              "type": "none"
+            }
+          },
+          "security": "reality",
+          "realitySettings": {
+            "serverName": "github.com",
+            "publicKey": "I_72571ePMcQNh9DeFxjTvTRvGWKDRRn-nXuY-dBxFw",
+            "shortId": "",
+            "fingerprint": "chrome",
+            "allowInsecure": false
+          }
+        }
+      },
+      {
+        "tag": "proxy_2",
+        "protocol": "vless",
+        "settings": {
+          "vnext": [
+            {
+              "address": "fin3.odavpn.online",
+              "port": 8443,
+              "users": [
+                {
+                  "id": "c220f447-badb-4120-aa3c-8c10f0a6dcb0",
+                  "encryption": "none",
+                  "flow": "xtls-rprx-vision",
+                  "level": 8
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "tcp",
+          "tcpSettings": {
+            "header": {
+              "type": "none"
+            }
+          },
+          "security": "reality",
+          "realitySettings": {
+            "serverName": "yahoo.com",
+            "publicKey": "mr3xhE5Q5uCP5er1wbOo8oWyf-FzpuPhY8rifZ0A8zU",
+            "shortId": "6c",
+            "fingerprint": "firefox",
+            "allowInsecure": false
+          }
+        }
+      },
+      {
+        "tag": "bypass_2",
+        "protocol": "vless",
+        "settings": {
+          "vnext": [
+            {
+              "address": "fin3.odavpn.online",
+              "port": 8443,
+              "users": [
+                {
+                  "id": "c220f447-badb-4120-aa3c-8c10f0a6dcb0",
+                  "encryption": "none",
+                  "flow": "xtls-rprx-vision",
+                  "level": 8
+                }
+              ]
+            }
+          ]
+        },
+        "streamSettings": {
+          "network": "tcp",
+          "tcpSettings": {
+            "header": {
+              "type": "none"
+            }
+          },
+          "security": "reality",
+          "realitySettings": {
+            "serverName": "yahoo.com",
+            "publicKey": "mr3xhE5Q5uCP5er1wbOo8oWyf-FzpuPhY8rifZ0A8zU",
+            "shortId": "6c",
+            "fingerprint": "firefox",
+            "allowInsecure": false
+          }
+        }
+      }
+    ],
+    "burstObservatory": {
+      "pingConfig": {
+        "timeout": "3s",
+        "interval": "120s",
+        "sampling": 1,
+        "destination": "http://www.gstatic.com/generate_204",
+        "connectivity": ""
+      },
+      "subjectSelector": [
+        "proxy_1",
+        "proxy_2",
+        "bypass_1",
+        "bypass_2"
+      ]
+    },
+    "remarks": "🇪🇺авто",
+    "meta": {
+      "serverDescription": "Ф+Н"
+    }
+  }
+]
